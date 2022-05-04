@@ -1,16 +1,19 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import "../App.css";
-class Immo extends React.Component {
+import { useParams } from "react-router-dom";
+class ImmoDetail extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       datas: [],
     };
   }
 
   componentDidMount() {
-    fetch(`http://127.0.0.1:8000/api/property/detail/1`)
+    let { id } = this.props.params;
+    console.log({ id });
+    fetch(`http://127.0.0.1:8000/api/property/detail/${id}`)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
@@ -19,25 +22,23 @@ class Immo extends React.Component {
         });
       });
   }
+
   render() {
-    let text = " ";
+    
     const { datas } = this.state;
-    console.log(this.state);
-    return (
- 
-        <div className="appartement">
-          <ol>
-          
-              <li>
-                {datas.id} {text}  {datas.title} {text} {datas.size} {text}{" "}
-                {datas.address}{text} {datas.description}{text} 
-              </li>
-         
-          </ol>
-        </div>
-       
+        return (
+      <div className="appartement">
+        <ol>
+          {datas.id}
+          <h1> {datas.title}</h1>
+          <p>{datas.description}</p>
+          <p>{datas.size}</p>
+          <p> {datas.floor}</p>
+          <p>{datas.image}</p>
+        </ol>
+      </div>
     );
   }
 }
 
-export default Immo;
+export default (props) => <ImmoDetail {...props} params={useParams()} />;

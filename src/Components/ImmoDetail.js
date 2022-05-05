@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 class ImmoDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -34,8 +34,11 @@ class ImmoDetail extends React.Component {
           <p>{datas.description}</p>
           <p>{datas.size}</p>
           <p> {datas.floor}</p>
-          <p>{datas.image}</p>
+          <p> {datas.image}</p>
+          <img src={datas.image}/>
+          
         </ol>
+        <li><Link to="/">Accueil</Link></li>
       </div>
     );
   }

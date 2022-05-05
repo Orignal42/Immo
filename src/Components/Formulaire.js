@@ -1,42 +1,170 @@
 import React from "react";
+import axios from 'axios';
 import "../App.css";
-
+import {Link} from "react-router-dom";
 class Formulaire extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
-
+    this.state = {
+      title: "",
+      description: "",
+      size: "",
+      floor: "",
+      image: "",
+      price: "",
+      address: "",
+      postcode: "",
+      city: "",
+      room: "",
+      selectedFile: null
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({
+      [name]: value,
+     
+    });
   }
 
-  handleSubmit(event) {
-    alert("Le nom a été soumis : " + this.state.value);
-    event.preventDefault();
+  handleSubmit(e) {
+   
+    fetch(`http://127.0.0.1:8000/api/property/add`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+            },
+      body:
+        JSON.stringify(this.state),
+      }).then((result)=>{
+        result.json().then((res)=>{
+          console.warn('res',res)
+          console.log(JSON.stringify(this.state))      
+          }).catch(err=>{
+            console.log(err)
+        })
+      })
+      //pour la remise à zero des inputs et empecher plusieurs envoie de suite
+      this.setState({
+        title: "",
+        description: "",
+        size: "",
+        floor: "",
+        image: "",
+        price: "",
+        address: "",
+        postcode: "",
+        city: "",
+        room: "",
+      });
   }
 
   render() {
     return (
-      <div className="Formulaire">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Nom :
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
-          Description:<textarea></textarea>
-          <input type="submit" value="Envoyer" />
-        </form>
+      <div>
+        
+          <label htmlFor="title">Titre</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="floor">Etage</label>
+          <input
+            type="number"
+            id="floor"
+            name="floor"
+            value={this.state.floor}
+            onChange={this.handleChange}
+            
+          />
+          <label htmlFor="size">Surface</label>
+          <input
+            type="number"
+            id="size"
+            name="size"
+            value={this.state.size}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="image">Image</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={this.state.image}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="room">Piece</label>
+          <input
+            type="number"
+            id="room"
+            name="room"
+            value={this.state.room}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="price">Prix</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            min='100'
+            max='1000'
+            value={this.state.price}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="address">Adresse</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={this.state.address}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="postcode">Code postale</label>
+          <input
+            type="number"
+            id="postcode"
+            name="postcode"
+            min='1000'
+            max='9999'
+            value={this.state.postcode}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="city">Ville</label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            value={this.state.city}
+            onChange={this.handleChange}
+          />
+          <button onClick={this.handleSubmit}>Soumettre</button>
+ 
+
+        {JSON.stringify(this.state)}
+        <li><Link to="/">Accueil</Link></li>
+
       </div>
+
+
+
     );
   }
 }
-
 export default Formulaire;

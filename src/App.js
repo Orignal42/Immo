@@ -2,8 +2,9 @@ import React from "react";
 import "./App.css";
 import ImmoList from "./Components/ImmoList";
 import Formulaire from "./Components/Formulaire";
-import { BrowserRouter as Router,Link , Route,Routes} from "react-router-dom";
 import ImmoDetail from "./Components/ImmoDetail";
+import ImmoUpdate from "./Components/ImmoUpdate";
+import { BrowserRouter as Router,Link , Route,Routes} from "react-router-dom";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<ImmoList />} />
         <Route path="Immodetail/:id" element={<ImmoDetail />} />
+        <Route path="Immoupdate/:id" element={<ImmoUpdate />} />
         <Route path="Formulaire" element={<Formulaire/>} />
       </Routes>
       <div>

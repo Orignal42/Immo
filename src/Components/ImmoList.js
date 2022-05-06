@@ -37,7 +37,14 @@ class ImmoList extends React.Component {
                 {dat.room} pièces {text}
                 {dat.address} {text} {dat.city} {text} {dat.description} {text}{" "}
                 {dat.price}€
+               <p>
+
                <Link to ={`ImmoDetail/${dat.id}`}>Cliquer ici</Link>
+               </p>
+               <p>
+
+               <Link to ={`ImmoUpdate/${dat.id}`}>Modifier</Link>
+               </p>
             </li>
           ))}
         </ol>

@@ -36,6 +36,7 @@ class ImmoDetail extends React.Component {
           <p> {datas.floor}</p>
           <p> {datas.image}</p>
           <img src={datas.image}/>
+      
           
         </ol>
         <li><Link to="/">Accueil</Link></li>
